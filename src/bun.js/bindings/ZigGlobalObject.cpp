@@ -4,6 +4,7 @@
 #include "helpers.h"
 #include "JavaScriptCore/ArgList.h"
 #include "JavaScriptCore/JSImmutableButterfly.h"
+#include "wtf/text/ASCIILiteral.h"
 #include "wtf/text/Base64.h"
 #include "JavaScriptCore/BuiltinNames.h"
 #include "JavaScriptCore/CallData.h"
@@ -33,6 +34,7 @@
 #include "JavaScriptCore/JSLock.h"
 #include "JavaScriptCore/JSMap.h"
 #include "JavaScriptCore/JSMicrotask.h"
+#include "JavaScriptCore/JSString.h"
 
 #include "JavaScriptCore/JSModuleLoader.h"
 #include "JavaScriptCore/JSModuleNamespaceObject.h"
@@ -167,6 +169,8 @@
 
 #include "JSBunRequest.h"
 #include "ServerRouteList.h"
+#include "wtf/text/WTFString.h"
+#include <JavaScriptCore/JSBasePrivate.h>
 
 #if ENABLE(REMOTE_INSPECTOR)
 #include "JavaScriptCore/RemoteInspectorServer.h"
@@ -1141,6 +1145,11 @@ JSC::ScriptExecutionStatus Zig::GlobalObject::scriptExecutionStatus(JSC::JSGloba
     }
 }
 
+String defaultLanguage()
+{
+    return WTF::String::fromLatin1("ja-JP");
+}
+
 const JSC::GlobalObjectMethodTable GlobalObject::s_globalObjectMethodTable = {
     &supportsRichSourceInfo,
     &shouldInterruptScript,
@@ -1157,7 +1166,7 @@ const JSC::GlobalObjectMethodTable GlobalObject::s_globalObjectMethodTable = {
     &currentScriptExecutionOwner,
     &scriptExecutionStatus,
     nullptr, // reportViolationForUnsafeEval
-    nullptr, // defaultLanguage
+    &defaultLanguage, // defaultLanguage
     nullptr, // compileStreaming
     nullptr, // instantiateStreaming
     &Zig::deriveShadowRealmGlobalObject,
@@ -1183,7 +1192,7 @@ const JSC::GlobalObjectMethodTable EvalGlobalObject::s_globalObjectMethodTable =
     &currentScriptExecutionOwner,
     &scriptExecutionStatus,
     nullptr, // reportViolationForUnsafeEval
-    nullptr, // defaultLanguage
+    &defaultLanguage, // defaultLanguage
     nullptr, // compileStreaming
     nullptr, // instantiateStreaming
     &Zig::deriveShadowRealmGlobalObject,

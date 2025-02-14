@@ -171,6 +171,7 @@
 #include "ServerRouteList.h"
 #include "wtf/text/WTFString.h"
 #include <JavaScriptCore/JSBasePrivate.h>
+#include <cstdlib>
 
 #if ENABLE(REMOTE_INSPECTOR)
 #include "JavaScriptCore/RemoteInspectorServer.h"
@@ -1147,7 +1148,7 @@ JSC::ScriptExecutionStatus Zig::GlobalObject::scriptExecutionStatus(JSC::JSGloba
 
 String defaultLanguage()
 {
-    return WTF::String::fromLatin1("ja-JP");
+    return WTF::String::fromLatin1(getenv("LANG"));
 }
 
 const JSC::GlobalObjectMethodTable GlobalObject::s_globalObjectMethodTable = {
@@ -1166,7 +1167,7 @@ const JSC::GlobalObjectMethodTable GlobalObject::s_globalObjectMethodTable = {
     &currentScriptExecutionOwner,
     &scriptExecutionStatus,
     nullptr, // reportViolationForUnsafeEval
-    &defaultLanguage, // defaultLanguage
+    &defaultLanguage,
     nullptr, // compileStreaming
     nullptr, // instantiateStreaming
     &Zig::deriveShadowRealmGlobalObject,
@@ -1192,7 +1193,7 @@ const JSC::GlobalObjectMethodTable EvalGlobalObject::s_globalObjectMethodTable =
     &currentScriptExecutionOwner,
     &scriptExecutionStatus,
     nullptr, // reportViolationForUnsafeEval
-    &defaultLanguage, // defaultLanguage
+    &defaultLanguage,
     nullptr, // compileStreaming
     nullptr, // instantiateStreaming
     &Zig::deriveShadowRealmGlobalObject,

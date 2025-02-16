@@ -822,7 +822,7 @@ test("NODE_ENV=test loads .env.test even when .env.production exists", () => {
   expect(stdout).toBe("test");
 });
 
-test("LANG=zh-CN is default locale for Intl", () => {
+test("default locale is sourced from environment variables", () => {
   const locale = "zh-CN";
 
   const dir = tempDirWithFiles("dotenv", {

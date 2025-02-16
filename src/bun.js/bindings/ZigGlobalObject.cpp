@@ -171,7 +171,6 @@
 #include "ServerRouteList.h"
 #include "wtf/text/WTFString.h"
 #include <JavaScriptCore/JSBasePrivate.h>
-#include <cstdlib>
 
 #if ENABLE(REMOTE_INSPECTOR)
 #include "JavaScriptCore/RemoteInspectorServer.h"

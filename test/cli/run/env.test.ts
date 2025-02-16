@@ -821,3 +821,15 @@ test("NODE_ENV=test loads .env.test even when .env.production exists", () => {
   const { stdout } = bunRun(`${dir}/index.ts`, { NODE_ENV: "test" });
   expect(stdout).toBe("test");
 });
+
+test("LANG=zh-CN is default locale for Intl", () => {
+  const locale = "zh-CN";
+
+  const dir = tempDirWithFiles("dotenv", {
+    "index.ts": "console.log(Intl.DateTimeFormat().resolvedOptions().locale);",
+  });
+
+  const { stdout } = bunRun(`${dir}/index.ts`, { LANG: locale });
+
+  expect(stdout).toBe(locale);
+});
